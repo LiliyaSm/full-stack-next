@@ -1,9 +1,10 @@
 import { LogoutButton } from "@/components/buttons";
+import { Container } from "@chakra-ui/react";
 
 export default function Home() {
   return (
-    <main>
+    <Container maxW="1200px">
       <LogoutButton />
-    </main>
+    </Container>
   );
 }

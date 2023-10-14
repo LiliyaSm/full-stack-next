@@ -1,11 +1,13 @@
-import styles from "./page.module.css";
 import { LoginButton, RegisterButton } from "@/components/buttons";
+import { Flex } from "@chakra-ui/react";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <LoginButton />
-      <RegisterButton />
-    </main>
+    <Flex height="100vh" alignItems="center" justifyContent="center">
+      <div>
+        <LoginButton />
+        <RegisterButton />
+      </div>
+    </Flex>
   );
 }
