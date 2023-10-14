@@ -4,9 +4,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function GET() {
-  const {
-    user: { email },
-  } = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
+  const email = session?.user?.email;
   try {
     const user = await prisma.user.findUnique({
       where: { email },
@@ -28,9 +27,9 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const {
-    user: { email },
-  } = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
+  const email = session?.user?.email;
+
   const { name, title } = await req.json();
   try {
     const user = await prisma.user.update({

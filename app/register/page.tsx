@@ -13,7 +13,7 @@ import {
   Heading,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +45,7 @@ export default function SignupCard() {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
