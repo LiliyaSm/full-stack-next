@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       user: {
-        email: user.email,
+        email: user?.email,
       },
     });
   } catch (error: any) {

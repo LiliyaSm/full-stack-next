@@ -9,6 +9,7 @@ import {
   ModalBody,
   Button,
   Input,
+  useDisclosure
 } from "@chakra-ui/react";
 import { useEffect, useState, ChangeEvent } from "react";
 
@@ -19,6 +20,8 @@ const WelcomeModal = () => {
     title: "",
   });
   const [isOpen, setIsOpen] = useState(false);
+
+  const { onClose } = useDisclosure()
 
   const getData = async () => {
     const res = await fetch("/api/profile", {
@@ -95,7 +98,7 @@ const WelcomeModal = () => {
           {formValues.name} {formValues.title}
         </>
       )}
-      <Modal isOpen={isOpen}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>{getStep()}</ModalContent>
       </Modal>
