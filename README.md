@@ -1,4 +1,4 @@
-This project is an exploration of the Next.js 13 SSR and CSR full-stack features. It leverages Prisma for the database, GraphQL to fetch static data, and the Next API for database access. Authentication is handled with Next Auth.
+This project is an exploration of the Next.js 13 SSR and CSR full-stack features. It leverages Prisma ORM with the PostgreSQL database, GraphQL to fetch static data, and the Next API for database access. Authentication is handled with Next Auth.
 
 Here are the planned enhancements:
 
