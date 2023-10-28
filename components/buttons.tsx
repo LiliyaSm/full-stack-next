@@ -14,9 +14,9 @@ export const LoginButton = () => {
 
 export const RegisterButton = () => {
   return (
-    <Button m={2}>
-      <Link href="/register">Sign up</Link>
-    </Button>
+    <Link href="/register">
+      <Button m={2}>Sign up</Button>
+    </Link>
   );
 };
 
