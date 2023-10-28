@@ -18,9 +18,8 @@ import {
   useToast,
   UseToastOptions,
 } from "@chakra-ui/react";
-import { useState, ChangeEvent } from "react";
+import { useState, FormEvent } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { FormEvent } from "react";
 
 const errorToast: UseToastOptions = {
   status: "error",
@@ -75,11 +74,6 @@ export default function SignupCard() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
   };
 
   return (

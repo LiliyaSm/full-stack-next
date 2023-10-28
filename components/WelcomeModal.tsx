@@ -9,7 +9,8 @@ import {
   ModalBody,
   Button,
   Input,
-  useDisclosure
+  useDisclosure,
+  Box,
 } from "@chakra-ui/react";
 import { useEffect, useState, ChangeEvent } from "react";
 
@@ -20,8 +21,9 @@ const WelcomeModal = () => {
     title: "",
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { onClose } = useDisclosure()
+  const { onClose } = useDisclosure();
 
   const getData = async () => {
     const res = await fetch("/api/profile", {
@@ -33,11 +35,17 @@ const WelcomeModal = () => {
   };
 
   const submit = async () => {
-    const res = await fetch("/api/profile", {
-      method: "POST",
-      body: JSON.stringify(formValues),
-    });
-    setIsOpen(false);
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/profile", {
+        method: "POST",
+        body: JSON.stringify(formValues),
+      });
+    } catch (e: any) {
+      alert(e.message);
+    } finally {
+      setIsOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -59,10 +67,21 @@ const WelcomeModal = () => {
               value={formValues.name}
               onChange={handleChange}
               name="name"
+              isRequired
             />
           </ModalBody>
           <ModalFooter>
-            <Button variant="ghost" onClick={() => setStepNumber(1)}>
+            <Button
+              isDisabled={!formValues.name}
+              variant="ghost"
+              onClick={() => setStepNumber(1)}
+              size="md"
+              bg={"green.400"}
+              color={"white"}
+              _hover={{
+                bg: "green.500",
+              }}
+            >
               Next
             </Button>
           </ModalFooter>
@@ -80,10 +99,27 @@ const WelcomeModal = () => {
             />
           </ModalBody>
           <ModalFooter>
-            <Button variant="ghost" onClick={() => setStepNumber(0)}>
+            <Button
+              variant="ghost"
+              onClick={() => setStepNumber(0)}
+              size="md"
+              mr={3}
+              bg={"green.400"}
+              color={"white"}
+              _hover={{
+                bg: "green.500",
+              }}
+            >
               Prev
             </Button>
-            <Button colorScheme="blue" mr={3} onClick={submit}>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              isDisabled={!formValues.title}
+              onClick={submit}
+              loadingText="Submitting"
+              isLoading={isLoading}
+            >
               Submit
             </Button>
           </ModalFooter>
@@ -93,11 +129,13 @@ const WelcomeModal = () => {
   };
   return (
     <>
-      {!isOpen && (
-        <>
-          {formValues.name} {formValues.title}
-        </>
-      )}
+      <Box>
+        {!isOpen && formValues.name && formValues.title && (
+          <>
+            {formValues.name}, {formValues.title}
+          </>
+        )}
+      </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>{getStep()}</ModalContent>
